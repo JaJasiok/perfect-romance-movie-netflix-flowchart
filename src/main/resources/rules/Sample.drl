@@ -1,20 +1,392 @@
 package com.sample
- 
-import com.sample.DroolsTest.Message;
- 
-rule "Hello World"
-    when
-        m : Message( status == Message.HELLO, myMessage : message )
-    then
-        System.out.println( myMessage );
-        m.setMessage( "Goodbye cruel world" );
-        m.setStatus( Message.GOODBYE );
-        update( m );
+
+import com.sample.DroolsTest.DecisionTreeForm;
+
+declare State
+   question : String
+   options : String []
+   answer : String
 end
 
-rule "GoodBye"
-    when
-        Message( status == Message.GOODBYE, myMessage : message )
-    then
-        System.out.println( myMessage );
+rule "First question..."
+	when
+	then
+		State state = new State();
+		state.setQuestion("Classic or modern?");
+    	state.setOptions(new String[] {"I need an escape from Tinder.", "I'm a modern girl."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
 end
+ 
+rule "I need an escape from Tinder."
+    when
+        s : State(question == "Classic or modern?", answer == "I need an escape from Tinder." )
+    then
+    	State state = new State();
+    	state.setQuestion("Black and white?");
+    	state.setOptions(new String[] {"Definitely, love oldies!", "Let's go more modern."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();        
+        state.setAnswer(funkcja(decisionTreeForm, state));
+        insert(state);
+end
+
+rule "Definitely, love oldies!"
+    when
+        s : State(question == "Black and white?", answer == "Definitely, love oldies!" )
+    then
+    	State state = new State();
+    	state.setQuestion("A tale of friends or strangers?");
+    	state.setOptions(new String[] {"Strangers.", "Friends."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Strangers."
+    when
+        s : State(question == "A tale of friends or strangers?", answer == "Strangers." )
+    then
+    	State state = new State();
+    	state.setQuestion("Do they get together in the end?");
+    	state.setOptions(new String[] {"Please say yes!", "NBD."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Please say yes!"
+    when
+        s : State(question == "Do they get together in the end?", answer == "Please say yes!" )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Breakfest at Tiffany's\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "NBD."
+    when
+        s : State(question == "Do they get together in the end?", answer == "NBD." )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Roman Holiday\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Friends."
+    when
+        s : State(question == "A tale of friends or strangers?", answer == "Friends." )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Terms of Endearment\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+
+rule "Let's go more modern."
+    when
+        s : State(question == "Black and white?", answer == "Let's go more modern." )
+    then
+    	State state = new State();
+    	state.setQuestion("Based on a novel?");
+    	state.setOptions(new String[] {"Not so much.", "I'm kind of a book worm."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Not so much."
+    when
+        s : State(question == "Based on a novel?", answer == "Not so much." )
+    then
+    	State state = new State();
+    	state.setQuestion("Your thoughts on the '90s?");
+    	state.setOptions(new String[] {"Let's go earlier.", "Greatest years of my life."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Let's go earlier."
+    when
+        s : State(question == "Your thoughts on the '90s?", answer == "Let's go earlier." )
+    then
+    	State state = new State();
+    	state.setQuestion("Ah, period piece it is. Biography?");
+    	state.setOptions(new String[] {"Pass.", "Ok!"});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Pass."
+    when
+        s : State(question == "Ah, period piece it is. Biography?", answer == "Pass." )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Shakespeare In Love\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Ok!"
+    when
+        s : State(question == "Ah, period piece it is. Biography?", answer == "Ok!" )
+    then
+    	State state = new State();
+    	state.setQuestion("Art or film?");
+    	state.setOptions(new String[] {"Art!", "Film!"});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Art!"
+    when
+        s : State(question == "Art or film?", answer == "Art!" )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Frida\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Film!"
+    when
+        s : State(question == "Art or film?", answer == "Film!" )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Marilyn\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Greatest years of my life."
+    when
+        s : State(question == "Your thoughts on the '90s?", answer == "Greatest years of my life." )
+    then
+    	State state = new State();
+    	state.setQuestion("Deep passion or innocent love?");
+    	state.setOptions(new String[] {"Deep passion!", "Innocent love?"});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Deep passion!"
+    when
+        s : State(question == "Deep passion or innocent love?", answer == "Deep passion!" )
+    then
+    	State state = new State();
+    	state.setQuestion("Do you like ghosts?");
+    	state.setOptions(new String[] {"Bring it!", "No."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Bring it!"
+    when
+        s : State(question == "Do you like ghosts?", answer == "Bring it!" )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Ghost\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "No."
+    when
+        s : State(question == "Do you like ghosts?", answer == "No." )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Jerry Maguire\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Innocent love?"
+    when
+        s : State(question == "Deep passion or innocent love?", answer == "Innocent love?" )
+    then
+    	State state = new State();
+    	state.setQuestion("Small town or big city?");
+    	state.setOptions(new String[] {"Big city.", "Small town."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Big city."
+    when
+        s : State(question == "Small town or big city?", answer == "Big city." )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Clueless\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Small town"
+    when
+        s : State(question == "Small town or big city?", answer == "Small town." )
+    then
+    	State state = new State();
+    	state.setQuestion("A love that lasts decades?");
+    	state.setOptions(new String[] {"Let's cut to the chase.", "Love should last forever!"});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "Let's cut to the chase."
+    when
+        s : State(question == "A love that lasts decades?", answer == "Let's cut to the chase." )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"What's Eating Gilbert Grape?\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Love should last forever!"
+    when
+        s : State(question == "A love that lasts decades?", answer == "Love should last forever!" )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"What's Eating Gilbert Grape?\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "I'm kind of a book worm."
+    when
+        s : State(question == "Based on a novel?", answer == "I'm kind of a book worm." )
+    then
+    	State state = new State();
+    	state.setQuestion("New or old?");
+    	state.setOptions(new String[] {"New.", "Old."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "New."
+    when
+        s : State(question == "New or old?", answer == "New." )
+    then
+    	State state = new State();
+    	state.setQuestion("Based in the U.S. or Mexico?");
+    	state.setOptions(new String[] {"U.S.", "Viva Mexico!"});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "U.S."
+    when
+        s : State(question == "Based in the U.S. or Mexico?", answer == "U.S." )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"The Great Batsby(1974)\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Viva Mexico!"
+    when
+        s : State(question == "Based in the U.S. or Mexico?", answer == "Viva Mexico!" )
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Like Water for Chocolate\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Old."
+    when
+        s : State(question == "New or old?", answer == "Old." )
+    then
+    	State state = new State();
+    	state.setQuestion("Author Bronte or Austen?");
+    	state.setOptions(new String[] {"I prefer Russian literature.", "Emily Bronte is my queen.", "Jane Austen all the way."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "I prefer Russian literature."
+    when
+        s : State(question == "Author Bronte or Austen?", answer == "I prefer Russian literature")
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Anna Kerenia\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Emily Bronte is my queen."
+    when
+        s : State(question == "Author Bronte or Austen?", answer == "Emily Bronte is my queen.")
+    then
+    	State state = new State();
+    	state.setQuestion("Like love triangles?");
+    	state.setOptions(new String[] {"I LOVE love triangles.", "Pass."});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+    	insert(state);
+end
+
+rule "I LOVE love triangles."
+    when
+        s : State(question == "Like love triangles?", answer == "I LOVE love triangles.")
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Wuthering Heights\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Pass.2"
+    when
+        s : State(question == "Like love triangles?", answer == "Pass.")
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Jane Eyre\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+rule "Jane Austen all the way."
+    when
+        s : State(question == "Author Bronte or Austen?", answer == "Jane Austen all the way.")
+    then
+    	State state = new State();
+    	state.setQuestion("Your perfect movie is \"Mansfield Park\"!");
+    	state.setOptions(new String[] {});
+    	DecisionTreeForm decisionTreeForm = new DecisionTreeForm();
+    	state.setAnswer(funkcja(decisionTreeForm, state));
+end
+
+function String funkcja(DecisionTreeForm decisionTreeForm, State state){
+        return decisionTreeForm.addContent(state.getQuestion(), state.getOptions());
+	}

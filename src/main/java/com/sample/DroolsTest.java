@@ -68,50 +68,5 @@ public class DroolsTest {
 			}
 			return result;
 		}
-    	
-//    	public static void createFrame(State state) {
-//	    	JFrame frame = new JFrame("Movies");
-//	    	frame.setLayout(new BorderLayout());
-//	    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//	    	
-//	    	JLabel label = new JLabel(state.getQuestion);
-//	    	
-//	    	ButtonGroup buttonGroup = new ButtonGroup();
-//	    	
-//	        JPanel panel = new JPanel();
-//	        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-//
-//	    	panel.add(label);	    	
-//
-//	    	
-//	    	for(String s: state.getOptions) {
-//	    		JRadioButton button = new JRadioButton(s);
-//		    	buttonGroup.add(button);
-//		    	button.addActionListener(new ActionListener() {
-//		    		@Override
-//		    		public void actionPerformed(ActionEvent e) {
-//		    			state.setAnswer(((JButton) e.getSource()).getText());
-//		    			frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-//		    			}
-//		    		}
-//		    	);
-//		    	panel.add(button);
-//
-//	    	}
-//	        
-//	    	frame.add(panel);
-//	    	
-//	    	frame.pack();
-//	    	frame.setLocationRelativeTo(null);
-//	    	frame.setVisible(true);
-//    	}
-//    	
-//    	public static void generateContent() {
-//    		
-//    	}
-//    	
-//    }
-    
     }
-
 }

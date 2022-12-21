@@ -1,2 +1,2 @@
 # perfect-romance-movie-netflix-flowchart
-![image](https://user-images.githubusercontent.com/80395591/209011057-62288e35-fef7-44aa-924b-59ca0fc48792.png)
+![chart_full](https://user-images.githubusercontent.com/80395591/209014994-aba22f09-275a-4454-b775-d41de7851012.png)
